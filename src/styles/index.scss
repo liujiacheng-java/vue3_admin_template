@@ -1,0 +1,31 @@
+//引入清除默认样式
+@import './reset.scss';
+@import './variable.scss';
+
+//滚动条外观设置
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(13, 29, 47, 0.16);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(42, 74, 99, 0.72);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(31, 92, 124, 0.9);
+    background-clip: padding-box;
+}
+
+* {
+    scrollbar-color: rgba(42, 74, 99, 0.72) rgba(13, 29, 47, 0.16);
+    scrollbar-width: thin;
+}
