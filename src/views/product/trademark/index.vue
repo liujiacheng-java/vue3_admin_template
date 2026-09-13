@@ -12,7 +12,12 @@
             <el-table-column label="品牌操作">
                 <template #="{ row, $index }">
                     <el-button type="primary" size="small" icon="Edit" @click="updateTrademark(row)"></el-button>
-                    <el-button type="primary" size="small" icon="Delete"></el-button>
+                    <el-popconfirm :title="`确认删除品牌${row.tmName}吗？`" width="250px" icon="Delete"
+                        @confirm="deleteTrademark(row.id)">
+                        <template #reference>
+                            <el-button type="primary" size="small" icon="Delete"></el-button>
+                        </template>
+                    </el-popconfirm>
                 </template>
             </el-table-column>
         </el-table>
@@ -49,7 +54,7 @@
 <script setup lang='ts'>
 import { UploadProps, ElMessage } from 'element-plus'
 import { onMounted, ref, reactive } from 'vue'
-import { reqHasTrademark, reqAddOrUpdateTrademark } from '@/api/product/trademark'
+import { reqHasTrademark, reqAddOrUpdateTrademark, reqDeleteTrademark } from '@/api/product/trademark'
 import type { Records, TradeMarkResponseData, TradeMark } from '@/api/product/trademark/type'
 import { GET_TOKEN } from '@/utils/token'
 import { tr } from 'element-plus/es/locale'
@@ -97,13 +102,18 @@ const addTrademark = () => {
     trademarkParams.id = 0
     trademarkParams.tmName = ''
     trademarkParams.logoUrl = ''
+    //第一种写法:ts的问号语法
+    // formRef.value?.clearValidate('tmName');// formRef.value?.clearValidate('logoUrl');nextTick(() =
+    formRef.value.clearValidate('tmName');
+    formRef.value.clearValidate("logoUrl");
 }
 //修改品牌
 const updateTrademark = (row: TradeMark) => {
     dialogVisible.value = true
     //回显数据
     Object.assign(trademarkParams, row)
-
+    formRef.value.clearValidate('tmName');
+    formRef.value.clearValidate("logoUrl");
 }
 
 //取消
@@ -136,8 +146,21 @@ const confirm = async () => {
     }
 }
 //删除品牌
-const deleteTrademark = (id: number) => {
-    console.log('删除品牌', id)
+const deleteTrademark = async (id: number) => {
+    let res = await reqDeleteTrademark(id)
+    if (res.code === 200) {
+        ElMessage({
+            type: 'success',
+            message: '删除品牌成功'
+        });
+        //再次发请求获取已有全部的品牌数据
+        await getHasTrademark(trademarkList.value.length > 1 ? pageNo.value : pageNo.value - 1);
+    } else {
+        ElMessage({
+            type: 'error',
+            message: '删除品牌失败'
+        });
+    }
 }
 
 //上传图片组件->上传图片之前触发的钩子函数
