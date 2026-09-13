@@ -1,7 +1,7 @@
 <template>
     <div class="layout_container">
         <!-- /* 侧边栏 */ -->
-        <div class="layout_slider" :class="{ 'fold': LayoutSettingStore.fold }">
+        <div class="layout_slider">
             <Logo />
             <el-scrollbar class="layout_slider_scrollbar">
                 <el-menu :default-active="$route.path" @select="goRoute" :collapse="LayoutSettingStore.fold">
@@ -89,10 +89,7 @@ $base-tabbar-height: 50px;
         transition: width 0.3s ease;
 
         // backdrop-filter: blur(8px);
-        &.fold {
-            width: $base-menu-min-width;
-            // overflow: hidden;
-        }
+
 
         .layout_slider_scrollbar {
             height: calc(100vh - $base-menu-logo-height);

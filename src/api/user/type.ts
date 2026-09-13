@@ -11,31 +11,24 @@ export interface ResponseData {
   message: string
   ok: boolean
 }
-interface datatype {
-  message?: string
-  token?: string
-}
+// interface datatype {
+//   message?: string
+//   token?: string
+// }
 // { code: 200, data: { token } }
 
 //定义登录接口返回数据类型
-export interface loginResponseData {
-  code: number
-  data: datatype
+export interface loginResponseData extends ResponseData {
+  data: string
 }
 
 //定义获取用户信息返回数据类型
 export interface userInfoReponseData extends ResponseData {
   data: {
-    checkUser: {
-      userId: number
-      avatar: string
-      username: string
-      password: string
-      desc: string
-      roles: string[]
-      buttons: string[]
-      routes: string[]
-      token: string
-    }
+    routes: string[],
+    buttons: string[],
+    roles: string[],
+    name: string,
+    avatar: string
   }
 }

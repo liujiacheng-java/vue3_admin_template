@@ -20,10 +20,10 @@
         </div>
         <!-- 右侧按钮组 -->
         <div class="tabbar_right">
-            <el-button type="text" icon="Refresh" circle
+            <el-button link icon="Refresh" circle
                 @click="LayoutSettingStore.refresh = !LayoutSettingStore.refresh"></el-button>
-            <el-button type="text" icon="FullScreen" circle @click="fullScreen"></el-button>
-            <el-button type="text" icon="Setting" circle></el-button>
+            <el-button link icon="FullScreen" circle @click="fullScreen"></el-button>
+            <el-button link icon="Setting" circle></el-button>
             <img :src="userStore.avatar" alt="" class="user-avatar">
             <el-dropdown trigger="click">
                 <span class="el-dropdown-link">
@@ -34,7 +34,7 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item>退出登录</el-dropdown-item>
+                        <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -45,11 +45,12 @@
 <script setup lang='ts'>
 import useUserStore from '@/store/modules/user'
 import useLayOutSettingStore from '@/store/modules/setting'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 const userStore = useUserStore()
 
 let LayoutSettingStore = useLayOutSettingStore()
 let $route = useRoute()
+let $router = useRouter()
 const fullScreen = () => {
     //DOM对象的一个属性:可以用来判断当前是不是全屏模式[全屏:true,不是全屏:false]let full = document.fullscreenElement;
     //切换为全屏模式
@@ -64,6 +65,15 @@ const fullScreen = () => {
     }
 }
 // const userStore = useUserStore()
+//退出登录点击回调
+const logout = async () => {
+    //第一件事情:需要向服务器发请求[退出登录接口]******
+    //第二件事情:仓库当中关于用于相关的数据清空[token|username|avatar]
+    // //第三件事情:跳转到登录页面
+    await userStore.userLogout();
+    // 跳转到登录页面
+    $router.push({ path: '/login', query: { redirect: $route.path } });
+}
 </script>
 
 <script lang='ts'>

@@ -7,9 +7,9 @@ import { ref, reactive } from 'vue'
 import { onMounted } from 'vue'
 import useUserStore from '@/store/modules/user'
 const userStore = useUserStore()
-onMounted(async () => {
-  console.log(await userStore.userInfo())
-})
+// onMounted(async () => {
+//   console.log(await userStore.userInfo())
+// })
 </script>
 
 <style lang='scss' scoped></style>

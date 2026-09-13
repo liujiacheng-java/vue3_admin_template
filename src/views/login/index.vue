@@ -29,11 +29,12 @@
 import { ref, reactive } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import useUserStore from '@/store/modules/user'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getCurrentTime } from '@/utils/time'
 
 let $router = useRouter()
+let $route = useRoute()
 //加一个按钮加载效果
 let loading = ref(false)
 
@@ -89,7 +90,8 @@ const login = async () => {
 
     })
     loading.value = false
-    $router.push('/')
+    // 加上 as string
+    $router.push(($route.query.redirect as string) || '/');
   } catch (error) {
     ElNotification.error((error as Error).message || '登录失败')
     // console.log(error);

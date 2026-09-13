@@ -38,7 +38,7 @@ export default {
     p {
         font-size: 20px;
         color: #fefdfd;
-        margin-left: 10px;
+        margin-left: 15px;
         font-weight: bold;
         overflow: hidden;
     }
