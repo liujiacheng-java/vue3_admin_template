@@ -1,23 +1,43 @@
 <template>
   <div class="login-container">
     <el-row>
-      <el-col :span="12" :xs="0">
-      </el-col>
+      <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login-form" :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
+        <el-form
+          class="login-form"
+          :model="loginForm"
+          :rules="loginFormRules"
+          ref="loginFormRef"
+        >
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
           <!-- 两个输入框 -->
           <!-- 添加表单校验 -->
           <el-form-item :rules="loginFormRules.username" prop="username">
-            <el-input v-model="loginForm.username" placeholder="请输入用户名" :prefix-icon="User"></el-input>
+            <el-input
+              v-model="loginForm.username"
+              placeholder="请输入用户名"
+              :prefix-icon="User"
+            ></el-input>
           </el-form-item>
           <el-form-item :rules="loginFormRules.password" prop="password">
-            <el-input v-model="loginForm.password" placeholder="请输入密码" :prefix-icon="Lock" show-password
-              type="password"></el-input>
+            <el-input
+              v-model="loginForm.password"
+              placeholder="请输入密码"
+              :prefix-icon="Lock"
+              show-password
+              type="password"
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button :loading="loading" type="primary" style="width: 100%" @click="login">登录</el-button>
+            <el-button
+              :loading="loading"
+              type="primary"
+              style="width: 100%"
+              @click="login"
+            >
+              登录
+            </el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -25,7 +45,7 @@
   </div>
 </template>
 
-<script setup lang='ts'>
+<script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import useUserStore from '@/store/modules/user'
@@ -41,7 +61,7 @@ let loading = ref(false)
 let userStore = useUserStore()
 let loginForm = reactive({
   username: 'admin',
-  password: '111111'
+  password: '111111',
 })
 let loginFormRef = ref()
 //自定义表单校验规则
@@ -68,11 +88,11 @@ const validatePassword = (rule: any, value: string, callback: any) => {
 let loginFormRules = reactive({
   username: [
     //错误提示信息
-    { required: true, validator: validateUsername, trigger: 'change' }
+    { required: true, validator: validateUsername, trigger: 'change' },
   ],
   password: [
-    { required: true, validator: validatePassword, trigger: 'change' }
-  ]
+    { required: true, validator: validatePassword, trigger: 'change' },
+  ],
 })
 
 const login = async () => {
@@ -86,22 +106,20 @@ const login = async () => {
     ElNotification({
       type: 'success',
       message: '登录成功',
-      title: `HI,${currentTime} `
-
+      title: `HI,${currentTime} `,
     })
     loading.value = false
     // 加上 as string
-    $router.push(($route.query.redirect as string) || '/');
+    $router.push(($route.query.redirect as string) || '/')
   } catch (error) {
     ElNotification.error((error as Error).message || '登录失败')
     // console.log(error);
     loading.value = false
   }
 }
-
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .login-container {
   width: 100%;
   height: 100vh;
@@ -128,7 +146,5 @@ const login = async () => {
       margin-bottom: 20px;
     }
   }
-
-
 }
 </style>

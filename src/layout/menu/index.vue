@@ -7,25 +7,29 @@
           <component :is="item.meta.icon" />
         </el-icon>
         <template #title>
-
           {{ item.meta?.title }}
         </template>
       </el-menu-item>
     </template>
     <!-- 有子路由但是只有一个子路由 -->
     <template v-if="item.children && item.children.length == 1">
-      <el-menu-item :index="item.children[0].path" v-if="!item.children[0].meta.hidden">
+      <el-menu-item
+        :index="item.children[0].path"
+        v-if="!item.children[0].meta.hidden"
+      >
         <el-icon v-if="item.children[0].meta?.icon" :size="20">
           <component :is="item.children[0].meta.icon" />
         </el-icon>
         <template #title>
-
           <span>{{ item.children[0].meta.title }}</span>
         </template>
       </el-menu-item>
     </template>
     <!-- 有子路由且个数大于一个1 -->
-    <el-sub-menu :index="item.path" v-if="item.children && item.children.length > 1">
+    <el-sub-menu
+      :index="item.path"
+      v-if="item.children && item.children.length > 1"
+    >
       <template #title>
         <el-icon v-if="item.meta?.icon" :size="20">
           <component :is="item.meta.icon" />
@@ -37,23 +41,19 @@
   </template>
 </template>
 
-<script setup lang='ts'>
-import { el } from 'element-plus/es/locale';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { el } from 'element-plus/es/locale'
+import { useRouter } from 'vue-router'
 
 defineProps(['menuList'])
 
-const router = useRouter();
+const router = useRouter()
 function goRoute(e: any) {
-  router.push(e);
+  router.push(e)
 }
-
-
-
-
 </script>
 
-<script lang='ts'>
+<script lang="ts">
 export default {
   name: 'Menu',
   // props: {
@@ -64,4 +64,4 @@ export default {
   // }
 }
 </script>
-<style lang='scss' scoped></style>
+<style lang="scss" scoped></style>

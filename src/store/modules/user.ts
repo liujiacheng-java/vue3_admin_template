@@ -1,7 +1,11 @@
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'
 import { reqLogin, reqUserInfo, reqLogout } from '@/api/user/index'
 import type { UserState } from './types/type'
-import { loginResponseData, loginFormData, userInfoReponseData } from '@/api/user/type'
+import {
+  loginResponseData,
+  loginFormData,
+  userInfoReponseData,
+} from '@/api/user/type'
 import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 import { constantRoutes } from '@/router/routers'
 
@@ -11,7 +15,7 @@ const useUserStore = defineStore('User', {
       token: GET_TOKEN() || '',
       menuRoutes: constantRoutes,
       username: '',
-      avatar: ''
+      avatar: '',
     }
   },
   actions: {
@@ -23,11 +27,10 @@ const useUserStore = defineStore('User', {
       // console.log(result)
       //登录成功,将来要把token存储到本地存储中
       if (result.code === 200) {
-        this.token = (<string>result.data)
-        SET_TOKEN((<string>result.data))
+        this.token = <string>result.data
+        SET_TOKEN(<string>result.data)
         return 'ok'
-      }
-      else {
+      } else {
         return Promise.reject(new Error(result.data || '登录失败'))
       }
     },
@@ -46,7 +49,7 @@ const useUserStore = defineStore('User', {
     // 退出登录
     async userLogout() {
       let result: any = await reqLogout()
-      console.log(result);
+      console.log(result)
 
       if (result.code == 200) {
         this.token = ''
@@ -58,10 +61,8 @@ const useUserStore = defineStore('User', {
         return Promise.reject(new Error(result.message || '退出登录失败'))
       }
     },
-    getters: {
-    }
-  }
+    getters: {},
+  },
 })
 
 export default useUserStore
-

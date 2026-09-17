@@ -4,11 +4,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import request from '@/utils/request'
 import { onMounted } from 'vue'
-
-
 </script>
 
-<style lang='scss' scoped></style>
+<style lang="scss" scoped></style>

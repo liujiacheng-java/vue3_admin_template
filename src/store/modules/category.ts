@@ -41,7 +41,7 @@ const useCategoryStore = defineStore('Category', {
     async getC3() {
       const result: CategoryResponseData = await reqC3(this.c2Id)
       if (result.code == 200) {
-        this.c3Arr = result.data 
+        this.c3Arr = result.data
       }
     },
   },

@@ -1,0 +1,1 @@
+import{d as e,o as _,c as n,_ as t}from"./index-f2d53066.js";const o={class:"container"},s=e({__name:"index",setup(a){return(c,d)=>(_(),n("div",o," 我是大屏展示页面一级路由 "))}});const r=t(s,[["__scopeId","data-v-bb90a5d4"]]);export{r as default};

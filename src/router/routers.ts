@@ -7,7 +7,6 @@ export const constantRoutes = [
       title: '登录',
       icon: 'User',
       hidden: true,
-
     },
   },
   {
@@ -29,7 +28,8 @@ export const constantRoutes = [
           icon: 'HomeFilled',
           hidden: false,
         },
-      }]
+      },
+    ],
   },
   {
     path: '/screen',
@@ -81,8 +81,8 @@ export const constantRoutes = [
           icon: 'Monitor',
           hidden: false,
         },
-      }
-    ]
+      },
+    ],
   },
 
   {
@@ -157,8 +157,6 @@ export const constantRoutes = [
       title: '任意路由',
       icon: 'DataLine',
       hidden: true,
-
     },
   },
-
 ]
