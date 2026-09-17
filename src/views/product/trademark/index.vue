@@ -4,13 +4,7 @@
       添加品牌
     </el-button>
     <el-table style="margin: 20px" border :data="trademarkList">
-      <el-table-column
-        label="ID"
-        width="80px"
-        prop="id"
-        align="center"
-        type="index"
-      ></el-table-column>
+      <el-table-column label="ID" width="80px" prop="id" align="center" type="index"></el-table-column>
       <el-table-column label="品牌名称" prop="tmName"></el-table-column>
       <el-table-column label="品牌Logo">
         <template #="{ row, $index }">
@@ -19,18 +13,9 @@
       </el-table-column>
       <el-table-column label="品牌操作">
         <template #="{ row, $index }">
-          <el-button
-            type="primary"
-            size="small"
-            icon="Edit"
-            @click="updateTrademark(row)"
-          ></el-button>
-          <el-popconfirm
-            :title="`确认删除品牌${row.tmName}吗？`"
-            width="250px"
-            icon="Delete"
-            @confirm="deleteTrademark(row.id)"
-          >
+          <el-button type="primary" size="small" icon="Edit" @click="updateTrademark(row)"></el-button>
+          <el-popconfirm :title="`确认删除品牌${row.tmName}吗？`" width="250px" icon="Delete"
+            @confirm="deleteTrademark(row.id)">
             <template #reference>
               <el-button type="primary" size="small" icon="Delete"></el-button>
             </template>
@@ -39,51 +24,21 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <el-pagination
-      v-model:current-page="pageNo"
-      v-model:page-size="limit"
-      :page-sizes="[3, 5, 7, 9]"
-      layout="prev,
-                pager, next, jumper,->,sizes,total"
-      :total="total"
-      background
-      @current-change="getHasTrademark"
-      @size-change="sizeChange"
-    />
+    <el-pagination v-model:current-page="pageNo" v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]" layout="prev,
+                pager, next, jumper,->,sizes,total" :total="total" background @current-change="getHasTrademark"
+      @size-change="sizeChange" />
   </el-card>
   <!-- 对话框 -->
-  <el-dialog
-    :title="trademarkParams.id ? '修改品牌' : '添加品牌'"
-    v-model="dialogVisible"
-    width="50%"
-  >
-    <el-form
-      style="width: 80%"
-      :rules="rules"
-      :model="trademarkParams"
-      ref="formRef"
-    >
+  <el-dialog :title="trademarkParams.id ? '修改品牌' : '添加品牌'" v-model="dialogVisible" width="50%">
+    <el-form style="width: 80%" :rules="rules" :model="trademarkParams" ref="formRef">
       <el-form-item label="品牌名称" label-width="80px" prop="tmName">
-        <el-input
-          placeholder="请您输入品牌名称"
-          v-model="trademarkParams.tmName"
-        ></el-input>
+        <el-input placeholder="请您输入品牌名称" v-model="trademarkParams.tmName"></el-input>
       </el-form-item>
       <el-form-item label="品牌LOG0" label-width="80px" prop="logoUrl">
-        <el-upload
-          class="avatar-uploader"
-          action="/api/admin/product/fileUpload"
-          :headers="uploadHeaders"
-          :show-file-list="false"
-          :on-success="handleUploadSuccess"
-          :before-upload="beforeAvatarUpload"
-        >
-          <img
-            v-if="trademarkParams.logoUrl"
-            :src="trademarkParams.logoUrl"
-            alt=""
-            style="width: 178px; height: 178px"
-          />
+        <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload" :headers="uploadHeaders"
+          :show-file-list="false" :on-success="handleUploadSuccess" :before-upload="beforeAvatarUpload">
+          <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" alt=""
+            style="width: 178px; height: 178px" />
           <el-icon v-else class="avatar-uploader-icon">
             <Plus />
           </el-icon>
